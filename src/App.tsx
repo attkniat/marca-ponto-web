@@ -1,8 +1,10 @@
-import {BrowserRouter} from "react-router-dom"
+import {BrowserRouter} from "react-router-dom" 
 
 export default function App() {
   return (
-    <BrowserRouter></BrowserRouter>
+    <BrowserRouter>
+      <Switch></Switch>
+    </BrowserRouter>
 
   );
 }
