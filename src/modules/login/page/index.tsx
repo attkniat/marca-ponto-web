@@ -1,6 +1,7 @@
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Heading, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { api } from "../../shared/lib/api";
+import { toast } from 'react-toastify';
 
 export function LoginPage() {
 
@@ -13,7 +14,7 @@ export function LoginPage() {
 
         if(name === "email") {
             setEmail(value)
-        } else if(name === "password"){
+        } else if(name === "password") {
             setPassword(value)
         }
     }
@@ -25,8 +26,34 @@ export function LoginPage() {
         setLoading(true)
 
         try {
-            await api.post("/login", data)
+            
+            //await api.post("/login", data)
+
+            toast.success('Bem-Vindo!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+            
         } catch (error) {
+
+            toast.error('Falha no Login !', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+
+                console.log(error);
             
         } finally{
             setLoading(false)
@@ -47,7 +74,7 @@ export function LoginPage() {
                 <Heading size="lg" textAlign="center">Marca Ponto</Heading>
                     <Flex direction="column" gap="16px" mt="32px" as="form" onSubmit={handleSubmit}>
                         <FormControl>
-                            <FormLabel> 
+                            <FormLabel>
                                 Email
                             </FormLabel>
                             <Input name="email" type="email" onChange={handleChange} />

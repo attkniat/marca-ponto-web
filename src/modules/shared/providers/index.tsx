@@ -1,5 +1,7 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IAppProvider {
     children: ReactNode;
@@ -7,6 +9,7 @@ interface IAppProvider {
 
 export function AppProvider ({children} : IAppProvider) {
     return ( 
-        <ChakraProvider>{children}</ChakraProvider>
+        <ChakraProvider>
+            <ToastContainer />{children}</ChakraProvider>
      );
 }
