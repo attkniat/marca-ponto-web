@@ -27,7 +27,7 @@ export function LoginPage() {
 
         try {
             
-            //await api.post("/login", data)
+            await api.post("/login", data)
 
             toast.success('Bem-Vindo!', {
                 position: "top-center",
@@ -41,7 +41,6 @@ export function LoginPage() {
                 });
             
         } catch (error) {
-
             toast.error('Falha no Login !', {
                 position: "top-center",
                 autoClose: 3000,
@@ -54,7 +53,6 @@ export function LoginPage() {
                 });
 
                 console.log(error);
-            
         } finally{
             setLoading(false)
         }

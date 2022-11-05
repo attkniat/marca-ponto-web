@@ -10,6 +10,8 @@ interface IAppProvider {
 export function AppProvider ({children} : IAppProvider) {
     return ( 
         <ChakraProvider>
-            <ToastContainer />{children}</ChakraProvider>
+            <ToastContainer />
+            {children}
+        </ChakraProvider>
      );
 }
