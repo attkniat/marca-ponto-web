@@ -60,9 +60,16 @@ export function HomePage() {
         >
             <Box maxWidth="600px" p="24px" bg="white" borderRadius="6px">
                 <Heading size="md" textAlign="center">Marque seu Ponto</Heading>
-
                 <Flex direction="column" gap="16px" mt="32px">
-                    <Button width="400px" height="50px" type="button" onClick={onOpen} colorScheme='purple'>Marcar</Button>
+                    <Button 
+                        width="400px"
+                        height="50px"
+                        type="button"
+                        onClick={onOpen}
+                        colorScheme='purple'
+                    >
+                        Marcar
+                    </Button>
 
                     <Flex mb="12px" align='center' gap='4px' justify="center">
                         <Icon as={IoTimeSharp} />
@@ -93,16 +100,30 @@ export function HomePage() {
                 <ModalContent>
                     <ModalHeader>Confirmar Ponto Agora?</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
-                        <Text> Confirmarçaõ de Dados</ Text>
-                        <Text> Nathan Soares Oliveira</ Text>
-                        <Text> CLT</ Text>
-                    </ModalBody>
+                    <ModalBody m='16px'>
+                        <SimpleGrid gap='14px' row={2} >
+                            <Text as='b'> Dados Pessoais</ Text>
+                            <Text> Nome</ Text>
+                            <Text> CPF</ Text>
+                            <Text> Email</ Text>
+                            <Text as='b'> Horário</ Text>
+                            <Text fontSize='md'> {formatedDate}</Text>
+                            </SimpleGrid>
+                        </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} disabled={loading} onClick={onClose}>
+                        <Button 
+                            variant='ghost'
+                            onClick={handleConfirm} isLoading={loading}
+                        >
+                            Confirmar
+                        </Button>
+                        <Button 
+                            colorScheme='blue'
+                            mr={3} variant='outline'
+                            disabled={loading} onClick={onClose}
+                        >
                             Fechar
                         </Button>
-                        <Button variant='ghost' onClick={handleConfirm} isLoading={loading}>Confirmar</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
