@@ -2,8 +2,12 @@ import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from "@chak
 import { ChangeEvent, FormEvent, useState } from "react";
 import { api } from "../../shared/lib/api";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { LoginApiResponse } from "../types";
 
 export function LoginPage() {
+
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
@@ -22,37 +26,27 @@ export function LoginPage() {
     async function handleSubmit (event : FormEvent) {
         event.preventDefault();
 
-        const data = {email, password};
+        const payload = {email, password};
         setLoading(true)
 
         try {
-            
-            await api.post("/login", data)
+            const {data} = await api.post<LoginApiResponse>("/login", payload);
+            localStorage.setItem('jwtToken', data.token);
 
             toast.success('Bem-Vindo!', {
                 position: "top-center",
                 autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
                 });
+
+                navigate('/home');
             
         } catch (error) {
             toast.error('Falha no Login !', {
                 position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+                autoClose: 2000,
                 });
 
-                console.log(error);
+            console.log(error);
         } finally{
             setLoading(false)
         }
