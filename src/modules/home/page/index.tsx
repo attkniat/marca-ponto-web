@@ -1,5 +1,5 @@
 import { Box, Button, Flex, SimpleGrid, Heading, Icon, Text, useDisclosure, ModalOverlay, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader } from "@chakra-ui/react";
-import { IoPartlySunnySharp, IoSunnySharp, IoTimeSharp } from "react-icons/io5";
+import { IoPartlySunnySharp, IoSunnySharp, IoTimeSharp, IoPersonSharp, IoIdCard, IoMail } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../shared/lib/api";
 import { toast } from 'react-toastify';
@@ -61,7 +61,7 @@ export function HomePage() {
             <Box maxWidth="600px" p="24px" bg="white" borderRadius="6px">
                 <Heading size="md" textAlign="center">Marque seu Ponto</Heading>
                 <Flex direction="column" gap="16px" mt="32px">
-                    <Button 
+                    <Button
                         width="400px"
                         height="50px"
                         type="button"
@@ -96,28 +96,45 @@ export function HomePage() {
                 </Flex>
             </Box>
             <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
+                <ModalOverlay
+                    bg=''
+                    backdropFilter='auto'
+                    backdropInvert='4%'
+                    backdropBlur='2px'
+                />
                 <ModalContent>
-                    <ModalHeader>Confirmar Ponto Agora?</ModalHeader>
+                    <ModalHeader as="b" color='purple.250' alignSelf="center">Confirmar Ponto Agora?</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody m='16px'>
                         <SimpleGrid gap='14px' row={2} >
                             <Text as='b'> Dados Pessoais</ Text>
-                            <Text> Nome</ Text>
-                            <Text> CPF</ Text>
-                            <Text> Email</ Text>
+                            <Flex gap='4px'>
+                                <Icon as={IoPersonSharp}></Icon>
+                                <Text> Nome</ Text>
+                            </Flex>
+                            <Flex gap='4px'>
+                                <Icon as={IoIdCard}></Icon>
+                                <Text> CPF</ Text>
+                            </Flex>
+                            <Flex gap='4px'>
+                                <Icon as={IoMail}></Icon>
+                                <Text> Email</ Text>
+                            </Flex>
                             <Text as='b'> Horário</ Text>
-                            <Text fontSize='md'> {formatedDate}</Text>
-                            </SimpleGrid>
-                        </ModalBody>
+                            <Flex gap='4px'>
+                                <Icon as={IoTimeSharp} />
+                                <Text fontSize='md'> {formatedDate}</Text>
+                            </Flex>
+                        </SimpleGrid>
+                    </ModalBody>
                     <ModalFooter>
-                        <Button 
+                        <Button
                             variant='ghost'
                             onClick={handleConfirm} isLoading={loading}
                         >
                             Confirmar
                         </Button>
-                        <Button 
+                        <Button
                             colorScheme='blue'
                             mr={3} variant='outline'
                             disabled={loading} onClick={onClose}
