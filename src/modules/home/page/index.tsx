@@ -1,8 +1,10 @@
-import { Box, Button, Flex, SimpleGrid, Heading, Icon, Text, useDisclosure, ModalOverlay, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader } from "@chakra-ui/react";
-import { IoPartlySunnySharp, IoSunnySharp, IoTimeSharp, IoPersonSharp, IoIdCard, IoMail } from "react-icons/io5";
+import { Box, Button, Flex, Heading, Icon, Text, useDisclosure } from "@chakra-ui/react";
+import { IoTimeSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../shared/lib/api";
 import { toast } from 'react-toastify';
+import { ModalPontoConfirmar } from "./ModalPontoConfirmar";
+import { PontosDiaGrid } from "./PontosDiaGrid";
 
 export function HomePage() {
 
@@ -77,73 +79,10 @@ export function HomePage() {
                     </Flex>
                     <Heading size="md" textAlign="center">Seus Pontos do Dia</Heading>
 
-                    <SimpleGrid gap='18px' row={2} >
-                        <Box py="16px" px="24px" bgColor='purple.200' borderRadius='10px' width='400px'>
-                            <Flex align='center' gap='4px'>
-                                <Icon as={IoSunnySharp} />
-                                <Text as='b' color='purple.250' fontSize='md'> Entrada</Text>
-                            </Flex>
-                            <Text ml="20px" mt="4px" color='purple.250' fontSize='md'>08:00</Text>
-                        </Box>
-                        <Box py="16px" px="24px" bgColor='purple.200' borderRadius='10px' width='400px'>
-                            <Flex align='center' gap='4px'>
-                                <Icon as={IoPartlySunnySharp} />
-                                <Text as='b' color='purple.250' fontSize='md'> Saída</Text>
-                            </Flex>
-                            <Text ml="20px" mt="4px" color='purple.250' fontSize='md'>12:00</Text>
-                        </Box>
-                    </SimpleGrid>
+                    {PontosDiaGrid()}
                 </Flex>
             </Box>
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay
-                    bg=''
-                    backdropFilter='auto'
-                    backdropInvert='4%'
-                    backdropBlur='2px'
-                />
-                <ModalContent>
-                    <ModalHeader as="b" color='purple.250' alignSelf="center">Confirmar Ponto Agora?</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody m='16px'>
-                        <SimpleGrid gap='14px' row={2} >
-                            <Text as='b'> Dados Pessoais</ Text>
-                            <Flex gap='4px'>
-                                <Icon as={IoPersonSharp}></Icon>
-                                <Text> Nome</ Text>
-                            </Flex>
-                            <Flex gap='4px'>
-                                <Icon as={IoIdCard}></Icon>
-                                <Text> CPF</ Text>
-                            </Flex>
-                            <Flex gap='4px'>
-                                <Icon as={IoMail}></Icon>
-                                <Text> Email</ Text>
-                            </Flex>
-                            <Text as='b'> Horário</ Text>
-                            <Flex gap='4px'>
-                                <Icon as={IoTimeSharp} />
-                                <Text fontSize='md'> {formatedDate}</Text>
-                            </Flex>
-                        </SimpleGrid>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            variant='ghost'
-                            onClick={handleConfirm} isLoading={loading}
-                        >
-                            Confirmar
-                        </Button>
-                        <Button
-                            colorScheme='blue'
-                            mr={3} variant='outline'
-                            disabled={loading} onClick={onClose}
-                        >
-                            Fechar
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
+            {ModalPontoConfirmar(isOpen, onClose, formatedDate, handleConfirm, loading)}
         </Flex>
     )
 };
