@@ -1,5 +1,4 @@
 import { Box, Flex, SimpleGrid, Icon, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { IoPartlySunnySharp, IoSunnySharp } from "react-icons/io5";
 import { Point } from "../types";
 
