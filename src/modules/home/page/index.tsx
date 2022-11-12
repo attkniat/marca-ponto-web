@@ -3,8 +3,9 @@ import { IoTimeSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../shared/lib/api";
 import { toast } from 'react-toastify';
-import { ModalPontoConfirmar } from "./ModalPontoConfirmar";
-import { PontosDiaGrid } from "./PontosDiaGrid";
+import { ModalPontoConfirmar } from "../components/ModalPontoConfirmar";
+import { PontosDiaGrid } from "../components/PontosDiaGrid";
+import { Point, PointsApiResponse } from "../types";
 
 export function HomePage() {
 
@@ -12,11 +13,23 @@ export function HomePage() {
 
     const [loading, setLoading] = useState(false);
     const [dateNow, setDateNow] = useState<Date>(() => new Date());
+    const [points, setPoints] = useState<Point[]>([]);
 
     const formatedDate = new Intl.DateTimeFormat('pt-BR', {
         dateStyle: 'long',
         timeStyle: 'medium'
     }).format(dateNow);
+
+    function getPoints() {
+
+        api.get<PointsApiResponse>('/get-all-pontos-by-userId-async')
+            .then(resp => {
+                setPoints(resp.data);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 
     useEffect(() => {
         const timeOut = setTimeout(() => {
@@ -25,6 +38,10 @@ export function HomePage() {
         )
         return () => clearTimeout(timeOut)
     }, [dateNow])
+
+    useEffect(() => {
+        getPoints();
+    }, [])
 
     async function handleConfirm() {
 
@@ -39,6 +56,7 @@ export function HomePage() {
             });
 
             onClose();
+            getPoints();
         } catch (error) {
 
             toast.error('Falha ao Marcar Ponto !', {
@@ -72,17 +90,16 @@ export function HomePage() {
                     >
                         Marcar
                     </Button>
-
                     <Flex mb="12px" align='center' gap='4px' justify="center">
                         <Icon as={IoTimeSharp} />
                         <Text fontSize='md'> {formatedDate}</Text>
                     </Flex>
                     <Heading size="md" textAlign="center">Seus Pontos do Dia</Heading>
 
-                    {PontosDiaGrid()}
+                    <PontosDiaGrid points={points} />
                 </Flex>
             </Box>
-            {ModalPontoConfirmar(isOpen, onClose, formatedDate, handleConfirm, loading)}
+            <ModalPontoConfirmar isOpen={isOpen} onClose={onClose} formatedDate={formatedDate} handleConfirm={handleConfirm} loading={loading} />
         </Flex>
     )
 };

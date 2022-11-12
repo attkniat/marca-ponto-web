@@ -2,12 +2,21 @@ import { Button, Flex, SimpleGrid, Icon, Text, ModalOverlay, Modal, ModalBody, M
 import { useEffect, useState } from "react";
 import { IoTimeSharp, IoPersonSharp, IoIdCard, IoMail, IoShieldSharp } from "react-icons/io5";
 
-export function ModalPontoConfirmar(isOpen: boolean, onClose: () => void, formatedDate: string, handleConfirm: () => Promise<void>, loading: boolean) {
-    
-    const [nome, setNome] = useState<any | null>(null);
-    const [CPF, setCPF] = useState<any | null>(null);
-    const [email, setEmail] = useState<any | null>(null);
-    const [role, setRole] = useState<any | null>(null);
+interface ModalPontoConfirmarProps {
+
+    isOpen: boolean;
+    onClose: () => void;
+    formatedDate: string;
+    handleConfirm: () => Promise<void>;
+    loading: boolean;
+}
+
+export function ModalPontoConfirmar({formatedDate, handleConfirm, isOpen, loading, onClose}: ModalPontoConfirmarProps) {
+
+    const [nome, setNome] = useState<string | null>(null);
+    const [CPF, setCPF] = useState<string | null>(null);
+    const [email, setEmail] = useState<string | null>(null);
+    const [role, setRole] = useState<string | null>(null);
 
     useEffect(() => {
 
@@ -20,11 +29,10 @@ export function ModalPontoConfirmar(isOpen: boolean, onClose: () => void, format
         const emailC = localStorage.getItem('customerEmail');
         setEmail(emailC);
 
-        const roleC = localStorage.getItem('customerRole');        
-        setRole(roleC);      
+        const roleC = localStorage.getItem('customerRole');
+        setRole(roleC);
 
-    }, [isOpen])
-
+    }, [])
 
     return <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay
