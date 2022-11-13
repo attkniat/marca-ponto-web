@@ -22,7 +22,7 @@ export function PontosDiaGrid({ points }: PontosDiaGridProps) {
                         <Text ml="20px" mt="4px" color='purple.250' fontSize='md'>{point.dataCadastro}</Text>
                     </Box>
                 );
-            }): (<Text ml="20px" mt="4px" color='purple.250' fontSize='md'>Não há pontos hoje</Text>)}
+            }): (<Text ml="20px" mt="4px" align='center' color='purple.250' fontSize='md'>Não há pontos hoje</Text>)}
 
         </SimpleGrid>
     );
