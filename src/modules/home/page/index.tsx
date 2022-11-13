@@ -1,11 +1,12 @@
 import { Box, Button, Flex, Heading, Icon, Text, useDisclosure } from "@chakra-ui/react";
-import { IoTimeSharp } from "react-icons/io5";
+import { IoTimeSharp, IoLogIn } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { api } from "../../shared/lib/api";
 import { toast } from 'react-toastify';
 import { ModalPontoConfirmar } from "../components/ModalPontoConfirmar";
 import { PontosDiaGrid } from "../components/PontosDiaGrid";
 import { Point, PointsApiResponse } from "../types";
+import { useNavigate } from "react-router-dom";
 
 export function HomePage() {
 
@@ -14,6 +15,7 @@ export function HomePage() {
     const [loading, setLoading] = useState(false);
     const [dateNow, setDateNow] = useState<Date>(() => new Date());
     const [points, setPoints] = useState<Point[]>([]);
+    const navigate = useNavigate();
 
     const formatedDate = new Intl.DateTimeFormat('pt-BR', {
         dateStyle: 'long',
@@ -68,6 +70,17 @@ export function HomePage() {
         }
     }
 
+    function Logout() {
+
+        localStorage.clear();
+        navigate('/');
+
+        toast.success('Você saiu', {
+            position: "top-center",
+            autoClose: 2000,
+        });
+    }
+
     return (
         <Flex
             as="main"
@@ -79,6 +92,9 @@ export function HomePage() {
             bg="gray.200"
         >
             <Box maxWidth="600px" p="24px" bg="white" borderRadius="6px">
+                <Flex justify='right' mb='20px' >
+                    <Button rightIcon={<IoLogIn />} onClick={Logout} colorScheme='purple' size='lg' variant=''>Sair</Button>
+                </Flex>
                 <Heading size="md" textAlign="center">Marque seu Ponto</Heading>
                 <Flex direction="column" gap="16px" mt="32px">
                     <Button
