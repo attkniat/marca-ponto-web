@@ -1,15 +1,15 @@
 export const routes = {
     auth: {
-        path: '/',
+        path: 'auth',
         children: {
             login: {
                 path: 'login',
                 route: '/login',
-            },
-            register: {
-                path: 'register',
-                route: '/User/create-customer',
-            },
+            }//,
+            // register: {
+            //     path: 'register',
+            //     route: '/User/create-customer',
+            // },
         },
     },
     root: {
