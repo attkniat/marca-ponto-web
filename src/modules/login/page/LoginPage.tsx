@@ -34,7 +34,7 @@ export function LoginPage() {
 
     return (
         <Flex
-            as="main"
+            as="form"
             width="100%"
             height="100vh"
             direction="column"
@@ -50,16 +50,15 @@ export function LoginPage() {
                         <FormLabel>
                             Email
                         </FormLabel>
-                        <Input label="E-mail" type="email" error={errors.email} {...register('email')} />
+                        <Input type="email" {...register('email')} />
                     </FormControl>
 
                     <FormControl>
                         <FormLabel>
                             Senha
                         </FormLabel>
-                        <Input label="Senha" type="password" error={errors.password} {...register('password')} />
+                        <Input {...register('password')} />
                     </FormControl>
-
                     <Button
                         px="200px"
                         type="submit"

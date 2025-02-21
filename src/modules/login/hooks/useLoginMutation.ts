@@ -19,6 +19,8 @@ async function login(payload: LoginSchema) {
     const { data } = await api.post<ILoginAPIResponse>(routes.auth.children.login.route, payload);
 
     localStorage.setItem('jwtToken', data.token);
+
+    return data;
 }
 
 export function useLoginMutation() {
