@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { loginschema, LoginSchema } from "../schemas";
 import { zodResolver } from '@hookform/resolvers/zod';
