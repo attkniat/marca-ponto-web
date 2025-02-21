@@ -1,64 +1,37 @@
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { api } from "../../shared/lib/api";
-import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
-import { CustomerResponse, LoginApiResponse } from "../types";
+import { useState } from "react";
+import { useForm } from 'react-hook-form';
+import { loginschema, LoginSchema } from "../schemas";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLoginMutation } from "../hooks";
+import { Flex, Box, Heading, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 
 export function LoginPage() {
 
-    const navigate = useNavigate();
+    const {
+        formState: { errors },
+        handleSubmit,
+        register,
+    } = useForm<LoginSchema>({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+        resolver: zodResolver(loginschema),
+    });
 
-    const [loading, setLoading] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { mutate, isPending } = useLoginMutation();
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target
-
-        if (name === "email") {
-            setEmail(value)
-        } else if (name === "password") {
-            setPassword(value)
-        }
+    function onSubmit(args: LoginSchema) {
+        mutate(args);
     }
 
-    async function handleSubmit(event: FormEvent) {
-        event.preventDefault();
+    // const dataCustomer = await api.get<CustomerResponse>('/User/get-customer');
 
-        const payload = { email, password };
-        setLoading(true)
-
-        try {
-            const { data } = await api.post<LoginApiResponse>("/login", payload);
-            localStorage.setItem('jwtToken', data.token);
-
-            const dataCustomer = await api.get<CustomerResponse>('/User/get-customer');
-
-            localStorage.setItem('customerId', dataCustomer.data.id);
-            localStorage.setItem('customerName', dataCustomer.data.name);
-            localStorage.setItem('customerCPF', dataCustomer.data.cpf);
-            localStorage.setItem('customerEmail', dataCustomer.data.email);
-            localStorage.setItem('customerRole', dataCustomer.data.role);
-
-            toast.success('Bem-Vindo!', {
-                position: "top-center",
-                autoClose: 2000,
-            });
-
-            navigate('/home');
-
-        } catch (error) {
-            toast.error('Falha no Login !', {
-                position: "top-center",
-                autoClose: 2000,
-            });
-
-            console.log(error);
-        } finally {
-            setLoading(false)
-        }
-    }
+    // localStorage.setItem('customerId', dataCustomer.data.id);
+    // localStorage.setItem('customerName', dataCustomer.data.name);
+    // localStorage.setItem('customerCPF', dataCustomer.data.cpf);
+    // localStorage.setItem('customerEmail', dataCustomer.data.email);
+    // localStorage.setItem('customerRole', dataCustomer.data.role);
 
     return (
         <Flex
@@ -69,29 +42,30 @@ export function LoginPage() {
             align="center"
             justify="center"
             bg="gray.200"
+            onSubmit={handleSubmit(onSubmit)}
         >
             <Box maxWidth="600px" p="24px" bg="white" borderRadius="6px">
                 <Heading size="lg" textAlign="center">Marca Ponto</Heading>
-                <Flex direction="column" gap="16px" mt="32px" as="form" onSubmit={handleSubmit}>
+                <Flex direction="column" gap="16px" mt="32px">
                     <FormControl>
                         <FormLabel>
                             Email
                         </FormLabel>
-                        <Input name="email" type="email" onChange={handleChange} />
+                        <Input label="E-mail" type="email" error={errors.email} {...register('email')} />
                     </FormControl>
 
                     <FormControl>
                         <FormLabel>
                             Senha
                         </FormLabel>
-                        <Input name="password" type="password" onChange={handleChange} />
+                        <Input label="Senha" type="password" error={errors.password} {...register('password')} />
                     </FormControl>
 
                     <Button
                         px="200px"
                         type="submit"
                         colorScheme="blue"
-                        isLoading={loading}
+                        isLoading={isPending}
                     >
                         Login
                     </Button>
