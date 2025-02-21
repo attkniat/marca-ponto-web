@@ -6,20 +6,25 @@ import { routes } from "./routes";
 export const router = createBrowserRouter([
   {
     path: routes.root.path,
-    children: [
-      { index: true, element: <HomePage /> },
-    ]
+    element: <HomePage />
+    // children: [
+    //   { index: true, element: <XXXXXX /> },
+    // ],
   },
   {
     path: routes.auth.path,
+    // element: <AuthLayout />,
     element: <LoginPage />,
-    children: [
-      { path: routes.auth.children.login.path, element: <LoginPage /> },
-      // {
-      //   path: routes.auth.children.register.path,
-      //   element: <RegisterPage />,
-      // },
-    ],
+    // children: [
+    // {
+    //   path: routes.auth.children.login.path,
+    //   element: <LoginPage />,
+    // },
+    // {
+    //   path: routes.auth.children.register.path,
+    //   element: <RegisterPage />,
+    // },
+    // ],
   },
 ]
 );
