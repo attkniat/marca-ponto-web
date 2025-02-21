@@ -20,6 +20,6 @@ const combineProviders = (providers: IProvider[]): FC<PropsWithChildren> =>
 
 export const Providers = combineProviders([
     [ChakraProvider],
+    [QueryClientProvider, { client: new QueryClient() }],
     [AuthContextProvider],
-    [QueryClientProvider, { client: new QueryClient() }]
 ]);

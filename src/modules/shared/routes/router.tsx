@@ -6,27 +6,28 @@ import { AuthLayout } from "../../../Layouts/auth";
 import { RootLayout } from "../../../Layouts/auth/root";
 
 export const router = createBrowserRouter([
-  {
-    path: routes.root.path,
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-    ],
-  },
+  // {
+  //   path: routes.root.path,
+  //   element: <RootLayout />,
+  //   children: [
+  //     { index: true, element: <HomePage /> },
+  //   ],
+  //   errorElement: <div>404 Not Found </div>
+  // },
   {
     path: routes.auth.path,
-    element: <AuthLayout />,
-    // element: <LoginPage />,
-    children: [
-      {
-        path: routes.auth.children.login.path,
-        element: <LoginPage />,
-      },
-      // {
-      //   path: routes.auth.children.register.path,
-      //   element: <RegisterPage />,
-      // },
-    ],
+    // element: <AuthLayout />,
+    element: <LoginPage />,
+    // children: [
+    //   {
+    //     path: routes.auth.children.login.path,
+    //     element: <LoginPage />,
+    //   },
+    // {
+    //   path: routes.auth.children.register.path,
+    //   element: <RegisterPage />,
+    // },
+    // ],
   },
 ]
 );
