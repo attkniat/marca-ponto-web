@@ -1,8 +1,7 @@
 import { ComponentProps, ComponentType, FC, PropsWithChildren } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { AuthContextProvider } from "../../login/contexts/auth";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 type IProvider = [ComponentType<any>, ComponentProps<any>?];
 
@@ -21,6 +20,6 @@ const combineProviders = (providers: IProvider[]): FC<PropsWithChildren> =>
 
 export const Providers = combineProviders([
     [ChakraProvider],
-    [ToastContainer],
     [AuthContextProvider],
+    [QueryClientProvider, { client: new QueryClient() }]
 ]);
