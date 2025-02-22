@@ -6,6 +6,7 @@ import { useAuthContext } from "../contexts/auth";
 import { toast } from "react-toastify";
 import { LoginSchema } from "../schemas";
 import { CustomerResponse } from "../types";
+import { useNavigate } from "react-router-dom";
 
 type ILoginAPIResponse = {
 
@@ -37,6 +38,8 @@ async function login(payload: LoginSchema) {
 }
 
 export function useLoginMutation() {
+
+    const navigate = useNavigate();
     const { signIn } = useAuthContext();
 
     return useMutation({
@@ -44,6 +47,7 @@ export function useLoginMutation() {
         onSuccess: ({ token }) => {
             signIn(token);
             toast.success('Seja bem vindo!');
+            navigate('/');
         },
         onError: error => {
             let errorMessage = 'Erro desconhecido. Por favor, tente novamente mais tarde.';

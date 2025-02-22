@@ -7,6 +7,7 @@ import { ModalPontoConfirmar } from "../components/ModalPontoConfirmar";
 import { PontosDiaGrid } from "../components/PontosDiaGrid";
 import { Point, PointsApiResponse } from "../types";
 import { useNavigate } from "react-router-dom";
+import { routes } from "../../shared/routes/routes";
 
 export function HomePage() {
 
@@ -73,7 +74,7 @@ export function HomePage() {
     function Logout() {
 
         localStorage.clear();
-        navigate('/');
+        navigate(routes.auth.children.login.route);
 
         toast.success('Você saiu', {
             position: "top-center",
