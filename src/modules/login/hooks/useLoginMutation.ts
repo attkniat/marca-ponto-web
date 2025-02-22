@@ -5,6 +5,7 @@ import { routes } from "../../shared/routes/routes";
 import { useAuthContext } from "../contexts/auth";
 import { toast } from "react-toastify";
 import { LoginSchema } from "../schemas";
+import { CustomerResponse } from "../types";
 
 type ILoginAPIResponse = {
 
@@ -15,10 +16,22 @@ type ILoginAPIResponse = {
     token: string;
 };
 
+async function setDataLocalStorage() {
+
+    const dataCustomer = await api.get<CustomerResponse>(routes.user.children.customer.route);
+
+    localStorage.setItem('customerId', dataCustomer.data.id);
+    localStorage.setItem('customerName', dataCustomer.data.name);
+    localStorage.setItem('customerCPF', dataCustomer.data.cpf);
+    localStorage.setItem('customerEmail', dataCustomer.data.email);
+    localStorage.setItem('customerRole', dataCustomer.data.role);
+}
+
 async function login(payload: LoginSchema) {
     const { data } = await api.post<ILoginAPIResponse>(routes.auth.children.login.route, payload);
 
     localStorage.setItem('jwtToken', data.token);
+    await setDataLocalStorage();
 
     return data;
 }

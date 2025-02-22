@@ -17,4 +17,13 @@ export const routes = {
             },
         },
     },
+    user: {
+        path: 'user',
+        children: {
+            customer: {
+                path: 'get-customer',
+                route: '/User/get-customer'
+            }
+        }
+    }
 };

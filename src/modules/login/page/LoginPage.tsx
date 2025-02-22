@@ -24,14 +24,6 @@ export function LoginPage() {
         mutate(args);
     }
 
-    // const dataCustomer = await api.get<CustomerResponse>('/User/get-customer');
-
-    // localStorage.setItem('customerId', dataCustomer.data.id);
-    // localStorage.setItem('customerName', dataCustomer.data.name);
-    // localStorage.setItem('customerCPF', dataCustomer.data.cpf);
-    // localStorage.setItem('customerEmail', dataCustomer.data.email);
-    // localStorage.setItem('customerRole', dataCustomer.data.role);
-
     return (
         <Flex
             as="form"
