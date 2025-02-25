@@ -47,7 +47,7 @@ export function useLoginMutation() {
         onSuccess: ({ token }) => {
             signIn(token);
             toast.success('Seja bem vindo!');
-            navigate('/');
+            navigate('/tab');
         },
         onError: error => {
             let errorMessage = 'Erro desconhecido. Por favor, tente novamente mais tarde.';

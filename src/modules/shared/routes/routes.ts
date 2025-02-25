@@ -25,5 +25,18 @@ export const routes = {
                 route: '/User/get-customer'
             }
         }
+    },
+    tab: {
+        path: 'tab',
+        children: {
+            home: {
+                path: 'mark-point',
+                route: '/mark-point'
+            },
+            point: {
+                path: 'point',
+                route: '/point-history'
+            }
+        }
     }
 };

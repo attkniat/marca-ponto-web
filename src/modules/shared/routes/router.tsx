@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom"
 import { LoginPage } from "../../login/page/LoginPage";
-import { HomePage } from "../../home/page";
+import { MarkPoint } from "../../home/components/MarkPoint";
 import { routes } from "./routes";
-import { AuthLayout } from "../../../Layouts/auth";
 import { RootLayout } from "../../../Layouts/auth/root";
+import { PointsHistory } from "../../pointsHistory/page";
+import { HomePage } from "../../home/page";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,21 @@ export const router = createBrowserRouter([
     //   element: <RegisterPage />,
     // },
     // ],
+  },
+  {
+    path: routes.tab.path,
+    // element: <AuthLayout />,
+    element: <HomePage />,
+    children: [
+      {
+        path: routes.tab.children.home.path,
+        element: <MarkPoint />,
+      },
+      {
+        path: routes.tab.children.point.path,
+        element: <PointsHistory />,
+      },
+    ],
   },
 ]
 );

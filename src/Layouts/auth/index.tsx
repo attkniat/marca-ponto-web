@@ -6,7 +6,7 @@ export function AuthLayout() {
     const { isLogged } = useAuthContext();
 
     if (!isLogged) {
-        return <Navigate to='/' />;
+        return <Navigate to='/tab' />;
     }
 
     return (
